@@ -1,6 +1,7 @@
 import { useRef, Fragment, useEffect } from 'react';
 import { format, parseISO, startOfToday } from 'date-fns';
 import { motion } from 'framer-motion';
+import { Check } from 'lucide-react';
 import type { Goal, TimelineConfig } from '../types';
 import { getTimelineIntervals, getBarPosition, getTimelineWidth } from '../utils/dateUtils';
 import './GanttChart.css';
@@ -11,6 +12,7 @@ interface GanttChartProps {
     onEditGoal: (goal: Goal) => void;
     onDeleteGoal: (id: string) => void;
     onUpdateDates: (id: string, start: string, end: string) => void;
+    onToggleComplete?: (id: string) => void;
 }
 
 const GanttChart = ({
@@ -18,7 +20,8 @@ const GanttChart = ({
     config,
     onEditGoal,
     onDeleteGoal: _onDeleteGoal,
-    onUpdateDates: _onUpdateDates
+    onUpdateDates: _onUpdateDates,
+    onToggleComplete
 }: GanttChartProps) => {
     const viewportRef = useRef<HTMLDivElement>(null);
     const timelineStart = parseISO(config.startDate);
@@ -82,6 +85,15 @@ const GanttChart = ({
             <Fragment key={goal.id}>
                 <div className="gantt-row">
                     <div className="gantt-label-cell" style={{ paddingLeft: `${depth * 20 + 12}px` }}>
+                        <button
+                            className={`gantt-complete-btn ${goal.completed ? 'active' : ''}`}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                onToggleComplete?.(goal.id);
+                            }}
+                        >
+                            <Check size={12} />
+                        </button>
                         <span className="goal-title" onClick={() => onEditGoal(goal)}>{goal.title}</span>
                     </div>
                     <div className="gantt-timeline-cell">
