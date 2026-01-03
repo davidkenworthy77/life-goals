@@ -189,24 +189,6 @@ const Dashboard: React.FC<DashboardProps> = ({ goals, onAddGoal, onEditGoal, onT
 
             <section className="dashboard-section">
                 <div className="section-header">
-                    <h2>Quick Start</h2>
-                    <button className="btn-primary" onClick={() => onAddGoal()}>
-                        <Plus size={18} />
-                        <span>Custom Goal</span>
-                    </button>
-                </div>
-                <div className="template-grid">
-                    {TEMPLATES.map((t, i) => (
-                        <button key={i} className="template-card glass" onClick={() => handleTemplateClick(t)}>
-                            <div className="template-icon" style={{ backgroundColor: t.color }}>{t.icon}</div>
-                            <span className="template-label">{t.title}</span>
-                        </button>
-                    ))}
-                </div>
-            </section>
-
-            <section className="dashboard-section">
-                <div className="section-header">
                     <h2>🚀 Active Goals</h2>
                 </div>
                 <div className="goal-cards-grid">
@@ -232,6 +214,24 @@ const Dashboard: React.FC<DashboardProps> = ({ goals, onAddGoal, onEditGoal, onT
                     </div>
                 </section>
             )}
+
+            <section className="dashboard-section">
+                <div className="section-header">
+                    <h2>Quick Start</h2>
+                    <button className="btn-primary" onClick={() => onAddGoal()}>
+                        <Plus size={18} />
+                        <span>Custom Goal</span>
+                    </button>
+                </div>
+                <div className="template-grid">
+                    {TEMPLATES.map((t, i) => (
+                        <button key={i} className="template-card glass" onClick={() => handleTemplateClick(t)}>
+                            <div className="template-icon" style={{ backgroundColor: t.color }}>{t.icon}</div>
+                            <span className="template-label">{t.title}</span>
+                        </button>
+                    ))}
+                </div>
+            </section>
 
             <section className="dashboard-section settings-section">
                 <div className="section-header">
